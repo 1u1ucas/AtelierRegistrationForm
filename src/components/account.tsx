@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-function Account(AccountType : any) {
+interface AccountProps {
+  accountType: number | null;
+  setAccountType: (type: number) => void;
+}
 
-    const [accountType, setAccountType] = useState(AccountType);
+function Account({ accountType, setAccountType }: AccountProps) {
 
     const handlePersonalAccountClick = () => {
         setAccountType(1);
