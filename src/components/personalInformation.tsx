@@ -1,21 +1,32 @@
-import {useState} from 'react';
+export interface User {
+    accountType: number;
+    name?: string;
+    email?: string;
+    password?: string;
+    age?: string;
+    interest?: string;
+    bio?: string;
+  }
 
-function PersonalInformation() { 
+interface PersonnalInformationProps {
+    userData: User;
+    setUserData: React.Dispatch<React.SetStateAction<User>>;
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+}
+
+function PersonalInformation({ userData, setUserData}: PersonnalInformationProps) { 
+
       
     const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
+        setUserData({ ...userData, name: event.target.value});
     };
 
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(event.target.value);
+        setUserData({ ...userData, email: event.target.value});
     };
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
+        setUserData({ ...userData, password: event.target.value});
     }
 
 
@@ -29,7 +40,7 @@ function PersonalInformation() {
                     id="name"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="text"
-                      value={name}
+                      value={userData.name}
                       onChange={handleNameChange}
                       />
                 </div>
@@ -39,7 +50,7 @@ function PersonalInformation() {
                     id="Email"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="email"
-                      value={email}
+                      value={userData.email}
                       onChange={handleEmailChange}
                       />
                 </div>
@@ -49,7 +60,7 @@ function PersonalInformation() {
                     id="Password"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="password"
-                      value={password}
+                      value={userData.password}
                       onChange={handlePasswordChange}
                       />
                 </div>

@@ -1,21 +1,35 @@
 import {useState} from 'react';
 
-function ProfileData() { 
+export interface User {
+    accountType: number;
+    name?: string;
+    email?: string;
+    password?: string;
+    age?: string;
+    interest?: string;
+    bio?: string;
+  }
 
-    const [age, setAge] = useState('');
-    const [interest, setInterest] = useState('');
-    const [bio, setBio] = useState('');
+interface ProfilDataProps {
+    userData: User;
+    setUserData: React.Dispatch<React.SetStateAction<User>>;
+
+}
+
+function ProfileData({ userData, setUserData}: ProfilDataProps) { 
+
+
       
     const handleAgeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAge(event.target.value);
+        setUserData({ ...userData, age: event.target.value});
     };
 
     const handleInterestChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setInterest(event.target.value);
+        setUserData({ ...userData, interest: event.target.value});
     };
 
     const handleBioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBio(event.target.value);
+        setUserData({ ...userData, bio: event.target.value});
     }
 
 
@@ -29,7 +43,7 @@ function ProfileData() {
                     id="Age"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="text"
-                      value={age}
+                      value={userData.age}
                       onChange={handleAgeChange}
                       />
                 </div>
@@ -39,7 +53,7 @@ function ProfileData() {
                     id="Interest"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="text"
-                      value={interest}
+                      value={userData.interest}
                       onChange={handleInterestChange}
                       />
                 </div>
@@ -49,7 +63,7 @@ function ProfileData() {
                     id="Bio"
                       className="bg-slate-200 w-full rounded-md h-8 px-4"
                       type="text"
-                      value={bio}
+                      value={userData.bio}
                       onChange={handleBioChange}
                       />
                 </div>

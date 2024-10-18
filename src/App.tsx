@@ -31,7 +31,6 @@ function App() {
     bio: '',
   });
 
-  const accountType ="";
 
   const handleNext = () => {
     setSteps(steps + 1);
@@ -58,11 +57,11 @@ function App() {
           steps === 1 ? <Account accountType={userData.accountType} setAccountType={(type) => updateUserData({ accountType: type })} /> : null
         }
         {
-          steps === 2 ? <PersonalInformation /> : null
+          steps === 2 ? <PersonalInformation userData={userData} setUserData={setUserData} /> : null
         }
 
         {
-          steps === 3 ? <ProfileData /> : null
+          steps === 3 ? <ProfileData userData={userData} setUserData={setUserData} /> : null
         }
 
         <div className='flex flex-row w-full items-end justify-end gap-2'>
