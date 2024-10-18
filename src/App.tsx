@@ -3,6 +3,7 @@ import Steps from './components/steps'
 import Account from './components/account'
 import PersonalInformation from './components/personalInformation';
 import ProfileData from './components/profileData';
+import RegistredAccount from './components/registredAccount';
 
 export interface User {
   accountType: number;
@@ -33,7 +34,39 @@ function App() {
 
 
   const handleNext = () => {
+
+    if(steps === 1){
+      if (userData.accountType < 1 || userData.accountType > 2)
+        return(alert('vous devez choisir un type de compte'))
+    }
+
+    if(steps === 2){
+      if(!/^[a-zA-Z\s]+$/.test(userData.name  || '')){
+        return(alert('Le nom choisit est incorect'))
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userData.email || '')) {
+        return alert('L\'email est invalide');
+      }
+      if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(userData.password || '')) {
+        return alert('Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule et un chiffre');
+      }
+    }
+
+    if(steps === 3){
+      if(!/^[0-9]{1,2}$/.test(userData.age || '')){
+        return(alert('age incorect'))
+      }
+      if(!/^[a-zA-Z\s]+$/.test(userData.interest  || '')){
+        return(alert('L\'interet choisi est incorect'))
+      }
+      if(!/^[a-zA-Z0-9\s]+$/.test(userData.bio  || '')){
+        return(alert('La description est incorect'))
+      }
+
+    }
+
     setSteps(steps + 1);
+    
   };
 
   const handlePrevious = () => {
@@ -47,12 +80,16 @@ function App() {
 
   return (
     <div className="flex items-center justify-center w-full h-screen bg-slate-200">
+      {
+      steps > 3 ? <RegistredAccount userData={userData}/> :
       <div className="flex flex-col items-center justify-center p-6 rounded-lg  max-w-md gap-10 bg-white">
         <div className="flex flex-col items-center  justify-start gap-4">
           <h1 className="font-bold text-3xl text-black">Registration Form</h1>
           <p className="text-black opacity-25">Please fill out this form with the required information</p>     
         </div>
-        <Steps steps={steps}/>
+         <Steps steps={steps}/>
+        
+         
         {
           steps === 1 ? <Account accountType={userData.accountType} setAccountType={(type) => updateUserData({ accountType: type })} /> : null
         }
@@ -78,6 +115,7 @@ function App() {
           </button>
         </div>
       </div>
+    }
     </div>
   )
 }
